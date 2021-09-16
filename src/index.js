@@ -2,6 +2,59 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import GaugeChart from 'react-gauge-chart'
+import { Chart } from "react-charts";
+
+function MyChart() {
+    const data = React.useMemo(
+      () => [
+        {
+          label: 'Series 1',
+          data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
+        },
+      ],
+      []
+    )
+
+    const series = React.useMemo(
+        () => ({
+          type: 'area'
+        }),
+        []
+    )
+   
+    const axes = React.useMemo(
+      () => [
+        { primary: true, type: 'linear', position: 'bottom' },
+        { type: 'linear', position: 'left' }
+      ],
+      []
+    )
+   
+    const lineChart = (
+      // A react-chart hyper-responsively and continuously fills the available
+      // space of its parent element automatically
+      <div
+        style={{
+          width: '400px',
+          height: '210px'
+        }}
+      >
+        <Chart data={data} axes={axes} series={series}/>
+      </div>
+    )
+
+    return (
+        <div className="card" style={{width: 400}}>
+            {lineChart}
+        </div>
+        
+    )
+  }
+
+ 
+
+
+
 
 function AddButton(props) {
     return (
@@ -17,6 +70,7 @@ function AddButton(props) {
         
     )
 }
+
 
 class WaterChart extends React.Component {
     constructor(props) {
@@ -62,12 +116,24 @@ class WaterChart extends React.Component {
 class Home extends React.Component {
     render () {
         return (
-            <div style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
-              }}>
-                <WaterChart/>
+            <div>
+                <div style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+                    <WaterChart/>
+                </div>
+                <div style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: '10px'
+                }}>
+                    <MyChart/>
+                </div>
+                    
+                
             </div>
         )
     }

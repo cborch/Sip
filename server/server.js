@@ -6,7 +6,7 @@ const app = express();
 
 app.get("/api", (req, res) => {
     console.log('server got request')
-    res.json({message: "Hello from the server"})
+    res.json({data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 5]]})
 })
 
 app.listen(PORT, () => {

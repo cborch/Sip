@@ -52,19 +52,8 @@ function MyChart(props) {
     )
   }
 
- 
-
-
-
 
 function AddButton(props) {
-  React.useEffect(() => {
-    
-    fetch('/api')
-      .then(response => response.json())
-      .then(data => console.log(data));
-      console.log("use effect")
-  }, []);
 
     return (
         <div style={{
@@ -124,6 +113,27 @@ class WaterChart extends React.Component {
 
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        data: [],
+    }
+}
+
+  componentDidMount() {
+    console.log("comp")
+    fetch('/api')
+      .then(response => {
+        response = response.json();
+        response.then(response => {
+          console.log(response)
+          this.setState({
+            data: response["data"]
+        })
+        }) 
+      })
+  }
+
     render () {
         return (
             <div>
@@ -140,7 +150,8 @@ class Home extends React.Component {
                     alignItems: "center",
                     padding: '10px'
                 }}>
-                    <MyChart data={[[0, 1], [1, 2], [2, 4], [3, 2]]}/>
+                  {/* for some reason passing the data like this instead of hardcoding it got rid of the axis tick labels  */}
+                    <MyChart data={this.state.data}/>
                 </div>
                     
                 
